@@ -42,9 +42,10 @@ const HomePage = () => {
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-slide-up">
-              Připojte se k nám na strašidelnou zábavu plnou tajemství, kouzel a
-              vědeckých pokusů! Univerzita Tomáše Bati ve Zlíně vás zve na
-              magickou akci pro malé vědce a jejich rodiče.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Univerzita Tomáše Bati ve Zlíně ut enim ad minim veniam, quis
+              nostrud exercitation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
               <Link
@@ -77,8 +78,8 @@ const HomePage = () => {
               Co vás čeká na Strašidelné fakultě?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Objevte kouzelné aktivity a strašidelnou zábavu, které jsme pro
-              vás připravili!
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do
+              eiusmod tempor incididunt.
             </p>
           </div>
 
@@ -101,11 +102,11 @@ const HomePage = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Kouzelné Pokusy
+                Lorem Ipsum
               </h3>
               <p className="text-gray-600">
-                Magické chemické pokusy, strašidelné roboty a kouzelné
-                programování pro malé vědce všech věkových kategorií!
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
             </div>
 
@@ -127,12 +128,11 @@ const HomePage = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Strašidelná Zábava
+                Dolor Sit Amet
               </h3>
               <p className="text-gray-600">
-                Strašidelný skákací hrad, malování strašidelných masek, soutěže
-                o nejlepší kostým a spousta další kouzelné zábavy pro celou
-                rodinu!
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
 
@@ -154,12 +154,11 @@ const HomePage = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Rodinné Kouzlení
+                Consectetur Adipiscing
               </h3>
               <p className="text-gray-600">
-                Společné kouzelné aktivity pro rodiče a děti, kde se naučíte
-                vytvářet strašidelné lektvary a užijete si magický čas s
-                rodinou!
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur.
               </p>
             </div>
           </div>
@@ -194,7 +193,7 @@ const HomePage = () => {
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Připraveni na strašidelnou zábavu?
+            Lorem ipsum dolor sit amet?
           </h2>
           <p className="text-xl text-gray-600 mb-8">
             Připojte se k stovkám rodin, které si užily naši Strašidelnou
@@ -205,7 +204,7 @@ const HomePage = () => {
             to="/reservations"
             className="inline-block bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-12 py-4 rounded-full text-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
           >
-            Rezervovat Kouzelnou Vstupenku ZDARMA
+            Rezervovat misto
           </Link>
         </div>
       </section>
@@ -218,7 +217,7 @@ const HomePage = () => {
               UTB Strašidelná fakulta
             </h3>
             <p className="text-gray-400 mb-4">
-              Univerzita Tomáše Bati ve Zlíně - kde se věda setkává s kouzly!
+              Univerzita Tomáše Bati ve Zlíně
             </p>
             <div className="flex justify-center space-x-6">
               <button className="text-gray-400 hover:text-orange-400 transition-colors duration-200 cursor-pointer">

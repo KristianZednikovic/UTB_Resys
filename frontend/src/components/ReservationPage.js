@@ -64,7 +64,8 @@ const ReservationPage = () => {
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Připojte se k nám na strašidelnou fakultu! Vyplňte formulář níže a zarezervujte si místo.
+            Připojte se k nám na strašidelnou fakultu! Vyplňte formulář níže a
+            zarezervujte si místo.
           </p>
         </div>
 

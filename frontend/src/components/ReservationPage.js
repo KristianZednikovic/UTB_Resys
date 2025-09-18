@@ -17,11 +17,36 @@ const ReservationPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Reservation data:", formData);
-    alert("Rezervace byla úspěšně odeslána!");
+
+    try {
+      const response = await fetch("/api/reservations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create reservation");
+      }
+
+      const data = await response.json();
+      alert(`Rezervace byla úspěšně vytvořena! ID: ${data.reservation.id}`);
+
+      // Reset form
+      setFormData({
+        teamName: "",
+        participantCount: 1,
+        email: "",
+        time: "",
+      });
+    } catch (err) {
+      alert(`Chyba při vytváření rezervace: ${err.message}`);
+    }
   };
 
   return (
@@ -41,6 +66,12 @@ const ReservationPage = () => {
                 className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
               >
                 Domů
+              </Link>
+              <Link
+                to="/manage"
+                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+              >
+                Spravovat
               </Link>
               <Link
                 to="/reservations"
@@ -172,6 +203,16 @@ const ReservationPage = () => {
               >
                 Potvrdit Rezervaci
               </button>
+
+              <div className="text-center mt-4">
+                <p className="text-gray-600 mb-3">Už máte rezervaci?</p>
+                <Link
+                  to="/manage"
+                  className="inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg transform hover:scale-105"
+                >
+                  Spravovat Existující Rezervace
+                </Link>
+              </div>
             </form>
           </div>
 
@@ -201,7 +242,7 @@ const ReservationPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Telefon</p>
-                    <p className="text-gray-600">+420 576 031 111</p>
+                    <p className="text-gray-600">+420 739 271 855</p>
                   </div>
                 </div>
 

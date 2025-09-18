@@ -8,8 +8,11 @@ A full-stack reservation system built with React frontend and Node.js backend fo
 - 📱 Mobile-friendly interface
 - 🔄 Client-side routing with refresh support
 - 📝 Reservation form with team registration
-- ⏰ Time slot selection (30-minute intervals)
-- 📧 Email notifications
+- ⏰ Time slot selection (10-minute intervals, 15:00-20:00)
+- 👥 Maximum 8 participants per team
+- 📧 Email-based reservation management
+- 🗑️ Cancel existing reservations
+- 🔍 View reservations by email
 - 🎨 Beautiful gradient animations and effects
 
 ## Project Structure
@@ -90,6 +93,9 @@ UTB_Resys/
 
 - `GET /api` - API information
 - `GET /api/health` - Health check endpoint
+- `GET /api/reservations?email={email}` - Get reservations by email
+- `POST /api/reservations` - Create a new reservation
+- `PUT /api/reservations/:id/cancel` - Cancel a reservation
 - `GET /*` - Serves the React application (handles client-side routing)
 
 ## Important Notes

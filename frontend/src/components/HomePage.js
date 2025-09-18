@@ -21,6 +21,12 @@ const HomePage = () => {
                 Domů
               </Link>
               <Link
+                to="/manage"
+                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+              >
+                Spravovat
+              </Link>
+              <Link
                 to="/reservations"
                 className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium"
               >

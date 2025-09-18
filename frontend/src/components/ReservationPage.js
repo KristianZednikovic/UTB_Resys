@@ -5,7 +5,6 @@ const ReservationPage = () => {
   const [formData, setFormData] = useState({
     teamName: "",
     participantCount: 1,
-    participantNames: "",
     email: "",
     time: "",
   });
@@ -104,27 +103,12 @@ const ReservationPage = () => {
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                     <option key={num} value={num}>
                       {num} {num === 1 ? "Účastník" : "Účastníků"}
                     </option>
                   ))}
                 </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Jména účastníků *
-                </label>
-                <textarea
-                  name="participantNames"
-                  value={formData.participantNames}
-                  onChange={handleInputChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Zadejte jména všech účastníků (jedno jméno na řádek)"
-                />
               </div>
 
               <div>
@@ -144,7 +128,7 @@ const ReservationPage = () => {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Čas (30min intervaly) *
+                  Čas (10min intervaly) *
                 </label>
                 <select
                   name="time"
@@ -154,28 +138,31 @@ const ReservationPage = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                 >
                   <option value="">Vyberte čas</option>
-                  <option value="09:00">9:00 - 9:30</option>
-                  <option value="09:30">9:30 - 10:00</option>
-                  <option value="10:00">10:00 - 10:30</option>
-                  <option value="10:30">10:30 - 11:00</option>
-                  <option value="11:00">11:00 - 11:30</option>
-                  <option value="11:30">11:30 - 12:00</option>
-                  <option value="12:00">12:00 - 12:30</option>
-                  <option value="12:30">12:30 - 13:00</option>
-                  <option value="13:00">13:00 - 13:30</option>
-                  <option value="13:30">13:30 - 14:00</option>
-                  <option value="14:00">14:00 - 14:30</option>
-                  <option value="14:30">14:30 - 15:00</option>
-                  <option value="15:00">15:00 - 15:30</option>
-                  <option value="15:30">15:30 - 16:00</option>
-                  <option value="16:00">16:00 - 16:30</option>
-                  <option value="16:30">16:30 - 17:00</option>
-                  <option value="17:00">17:00 - 17:30</option>
-                  <option value="17:30">17:30 - 18:00</option>
-                  <option value="18:00">18:00 - 18:30</option>
-                  <option value="18:30">18:30 - 19:00</option>
-                  <option value="19:00">19:00 - 19:30</option>
-                  <option value="19:30">19:30 - 20:00</option>
+                  <option value="15:00">15:00 - 15:10</option>
+                  <option value="15:10">15:10 - 15:20</option>
+                  <option value="15:20">15:20 - 15:30</option>
+                  <option value="15:30">15:30 - 15:40</option>
+                  <option value="15:40">15:40 - 15:50</option>
+                  <option value="16:00">16:00 - 16:10</option>
+                  <option value="16:10">16:10 - 16:20</option>
+                  <option value="16:20">16:20 - 16:30</option>
+                  <option value="16:30">16:30 - 16:40</option>
+                  <option value="16:40">16:40 - 16:50</option>
+                  <option value="17:00">17:00 - 17:10</option>
+                  <option value="17:10">17:10 - 17:20</option>
+                  <option value="17:20">17:20 - 17:30</option>
+                  <option value="17:30">17:30 - 17:40</option>
+                  <option value="17:40">17:40 - 17:50</option>
+                  <option value="18:00">18:00 - 18:10</option>
+                  <option value="18:10">18:10 - 18:20</option>
+                  <option value="18:20">18:20 - 18:30</option>
+                  <option value="18:30">18:30 - 18:40</option>
+                  <option value="18:40">18:40 - 18:50</option>
+                  <option value="19:00">19:00 - 19:10</option>
+                  <option value="19:10">19:10 - 19:20</option>
+                  <option value="19:20">19:20 - 19:30</option>
+                  <option value="19:30">19:30 - 19:40</option>
+                  <option value="19:40">19:40 - 19:50</option>
                 </select>
               </div>
 

@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -14,8 +15,11 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.get("/", (req, res) => {
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+// API Routes
+app.get("/api", (req, res) => {
   res.json({
     message: "UTB Reservation System API",
     version: "1.0.0",
@@ -39,11 +43,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use("*", (req, res) => {
-  res.status(404).json({
-    message: "Route not found",
-  });
+// Catch all handler: send back React's index.html file for any non-API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 app.listen(PORT, () => {

@@ -1,6 +1,16 @@
 # UTB Reservation System
 
-A full-stack reservation system built with React frontend and Node.js backend.
+A full-stack reservation system built with React frontend and Node.js backend for the UTB Strašidelná fakulta (Spooky Faculty) event.
+
+## Features
+
+- 🎃 Modern, responsive design with Halloween theme
+- 📱 Mobile-friendly interface
+- 🔄 Client-side routing with refresh support
+- 📝 Reservation form with team registration
+- ⏰ Time slot selection (30-minute intervals)
+- 📧 Email notifications
+- 🎨 Beautiful gradient animations and effects
 
 ## Project Structure
 
@@ -22,82 +32,92 @@ UTB_Resys/
 └── README.md
 ```
 
-## Getting Started
+## Quick Start
+
+### Option 1: Production Mode (Recommended)
+
+1. Install dependencies for both frontend and backend:
+
+   ```bash
+   # Install backend dependencies
+   cd backend && npm install && cd ..
+
+   # Install frontend dependencies
+   cd frontend && npm install && cd ..
+   ```
+
+2. Build the frontend:
+
+   ```bash
+   cd frontend && npm run build && cd ..
+   ```
+
+3. Start the server:
+
+   ```bash
+   node start.js
+   ```
+
+   The application will be available at `http://localhost:5000`
+
+### Option 2: Development Mode
+
+1. **Backend Setup:**
+
+   ```bash
+   cd backend
+   npm install
+   npm run dev  # or node server.js
+   ```
+
+2. **Frontend Setup (in a new terminal):**
+
+   ```bash
+   cd frontend
+   npm install
+   npm start
+   ```
+
+   - Backend: `http://localhost:5000`
+   - Frontend: `http://localhost:3000`
 
 ### Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn
 
-### Backend Setup
-
-1. Navigate to the backend directory:
-
-   ```bash
-   cd backend
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file (copy from `.env.example`):
-
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-   The backend will be available at `http://localhost:5000`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-
-   ```bash
-   npm start
-   ```
-
-   The frontend will be available at `http://localhost:3000`
-
 ## API Endpoints
 
-- `GET /` - API information
+- `GET /api` - API information
 - `GET /api/health` - Health check endpoint
+- `GET /*` - Serves the React application (handles client-side routing)
 
-## Development
+## Important Notes
 
-- Backend runs on port 5000
-- Frontend runs on port 3000 and proxies API requests to the backend
-- Use `npm run dev` in the backend for development with auto-restart
-- Use `npm start` in the frontend for development with hot-reload
+### Client-Side Routing Fix
+
+The application now properly handles client-side routing and page refreshes. When you refresh the page at `/reservations` or any other route, the server will serve the React application instead of returning a 404 error.
+
+**How it works:**
+
+1. The backend serves the built React app as static files
+2. All non-API routes (`/*`) are handled by serving the `index.html` file
+3. React Router takes over on the client side and displays the correct component
+
+### Development vs Production
+
+- **Development**: Frontend and backend run separately (ports 3000 and 5000)
+- **Production**: Single server serves both API and frontend (port 5000 only)
 
 ## Technologies Used
 
 ### Frontend
 
 - React 18
+- React Router DOM
 - Create React App
-- CSS3
+- Tailwind CSS
+- Custom animations and gradients
 
 ### Backend
 
@@ -107,3 +127,4 @@ UTB_Resys/
 - Helmet (security)
 - Morgan (logging)
 - dotenv (environment variables)
+- Static file serving for SPA routing

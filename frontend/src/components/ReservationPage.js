@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ReservationPage = () => {
@@ -11,22 +11,18 @@ const ReservationPage = () => {
   const [errors, setErrors] = useState({});
   const [timeAvailability, setTimeAvailability] = useState({});
 
-  // Fetch time slot availability on component mount
-  useEffect(() => {
-    const fetchTimeAvailability = async () => {
-      try {
-        const response = await fetch("./backend/get_time_availability.php");
-        if (response.ok) {
-          const data = await response.json();
-          setTimeAvailability(data.availability);
-        }
-      } catch (error) {
-        console.error("Failed to fetch time availability:", error);
+  // Fetch time slot availability when dropdown is clicked
+  const fetchTimeAvailability = async () => {
+    try {
+      const response = await fetch("./backend/get_time_availability.php");
+      if (response.ok) {
+        const data = await response.json();
+        setTimeAvailability(data.availability);
       }
-    };
-    
-    fetchTimeAvailability();
-  }, []);
+    } catch (error) {
+      console.error("Failed to fetch time availability:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -219,6 +215,7 @@ const ReservationPage = () => {
                   name="time_slot"
                   value={formData.time_slot}
                   onChange={handleInputChange}
+                  onClick={fetchTimeAvailability}
                   required
                   className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
                     errors.time_slot ? 'border-red-500' : 'border-gray-300'

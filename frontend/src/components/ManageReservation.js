@@ -7,6 +7,7 @@ const ManageReservation = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const ManageReservation = () => {
     setLoading(true);
     setError("");
     setSuccess("");
+    setHasSearched(true);
 
     try {
       const response = await fetch(
@@ -255,7 +257,7 @@ const ManageReservation = () => {
           )}
 
           {/* No Reservations Found */}
-          {reservations.length === 0 && email && !loading && (
+          {reservations.length === 0 && hasSearched && !loading && (
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg

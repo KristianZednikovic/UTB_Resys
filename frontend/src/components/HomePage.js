@@ -3,34 +3,42 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-red-900 relative overflow-hidden">
+      {/* Creepy Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 border border-red-500 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute bottom-20 left-1/4 w-16 h-16 border border-red-600 rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute top-1/2 right-1/3 w-20 h-20 border border-gray-400 rounded-full animate-pulse" style={{ animationDelay: "3s" }}></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+      <nav className="bg-black/90 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-red-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-                UTB Strašidelná fakulta
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
+                🦇 UTB Strašidelná fakulta 🦇
               </h1>
             </div>
             <div className="flex space-x-8">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Domů
+                🏠 Domů
               </Link>
               <Link
                 to="/manage"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Spravovat
+                ⚰️ Spravovat
               </Link>
               <Link
                 to="/reservations"
-                className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Rezervovat
+                💀 Rezervovat
               </Link>
             </div>
           </div>
@@ -41,130 +49,97 @@ const HomePage = () => {
       <section className="relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 animate-fade-in">
-              Vítejte na
-              <span className="block bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">
-                Strašidelné fakultě UTB
+            <h1 className="text-5xl md:text-7xl font-black text-red-400 mb-6 animate-fade-in drop-shadow-2xl">
+              🦇 Vítejte v
+              <span className="block bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
+                Strašidelné fakultě UTB 🦇
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto animate-slide-up">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Univerzita Tomáše Bati ve Zlíně ut enim ad minim veniam, quis
-              nostrud exercitation.
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto animate-slide-up leading-relaxed">
+              🌙 Vstupte do temného světa, kde se věda setkává s nadpřirozenem... 
+              <br />
+              💀 Univerzita Tomáše Bati ve Zlíně otevírá své nejstrašidelnější laboratoře 
+              <br />
+              🧪 kde se experimentuje s duchy, upíry a vědeckými monstry!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
               <Link
                 to="/reservations"
-                className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
               >
-                Rezervovat Místo
+                💀 Rezervovat Místo v Pekle
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-yellow-300 rounded-full opacity-20 animate-bounce-slow"></div>
+        {/* Creepy Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 border-2 border-red-500 rounded-full opacity-30 animate-pulse"></div>
         <div
-          className="absolute top-40 right-20 w-16 h-16 bg-orange-300 rounded-full opacity-30 animate-bounce-slow"
+          className="absolute top-40 right-20 w-16 h-16 border-2 border-gray-500 rounded-full opacity-40 animate-pulse"
           style={{ animationDelay: "1s" }}
         ></div>
         <div
-          className="absolute bottom-20 left-1/4 w-12 h-12 bg-yellow-400 rounded-full opacity-25 animate-bounce-slow"
+          className="absolute bottom-20 left-1/4 w-12 h-12 border-2 border-red-600 rounded-full opacity-35 animate-pulse"
           style={{ animationDelay: "2s" }}
         ></div>
+        <div className="absolute top-1/2 left-1/3 w-8 h-8 border border-red-400 rounded-full opacity-50 animate-ping"></div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white/50">
+      <section className="py-20 bg-black/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Co vás čeká na Strašidelné fakultě?
+            <h2 className="text-4xl font-bold text-red-400 mb-4 drop-shadow-lg">
+              🦇 Co vás čeká v temných laboratořích? 🦇
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do
-              eiusmod tempor incididunt.
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              💀 Připravte se na nejstrašidelnější zážitky, jaké kdy věda nabídla...
+              <br />
+              🧪 Experimenty, které vás donutí křičet hrůzou!
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Feature Card 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
+            <div className="bg-gray-900/80 border-2 border-red-800 rounded-2xl p-8 shadow-2xl hover:shadow-red-500/20 transition-all duration-300 transform hover:-translate-y-2 hover:border-red-600">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-600 to-red-800 rounded-2xl flex items-center justify-center mb-6 border border-red-400">
+                <span className="text-2xl">🧬</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Lorem Ipsum
+              <h3 className="text-2xl font-bold text-red-400 mb-4">
+                🧬 Genetické Experimenty
               </h3>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <p className="text-gray-300">
+                💀 Vytvořte si vlastní monstrum v našich temných laboratořích! 
+                🧪 Experimenty s DNA duchů a upírů, které vás donutí křičet hrůzou.
               </p>
             </div>
 
             {/* Feature Card 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-2xl flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+            <div className="bg-gray-900/80 border-2 border-red-800 rounded-2xl p-8 shadow-2xl hover:shadow-red-500/20 transition-all duration-300 transform hover:-translate-y-2 hover:border-red-600">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-600 to-red-800 rounded-2xl flex items-center justify-center mb-6 border border-red-400">
+                <span className="text-2xl">👻</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Dolor Sit Amet
+              <h3 className="text-2xl font-bold text-red-400 mb-4">
+                👻 Duchové a Nadpřirozeno
               </h3>
-              <p className="text-gray-600">
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
+              <p className="text-gray-300">
+                🌙 Komunikujte s duchy pomocí nejmodernějších vědeckých metod! 
+                🔬 Speciální senzory a detektory pro kontakt s říší mrtvých.
               </p>
             </div>
 
             {/* Feature Card 3 */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  />
-                </svg>
+            <div className="bg-gray-900/80 border-2 border-red-800 rounded-2xl p-8 shadow-2xl hover:shadow-red-500/20 transition-all duration-300 transform hover:-translate-y-2 hover:border-red-600">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-600 to-red-800 rounded-2xl flex items-center justify-center mb-6 border border-red-400">
+                <span className="text-2xl">⚰️</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Consectetur Adipiscing
+              <h3 className="text-2xl font-bold text-red-400 mb-4">
+                ⚰️ Anatomie Monstrů
               </h3>
-              <p className="text-gray-600">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur.
+              <p className="text-gray-300">
+                🦴 Pitve upírů, zombie a dalších strašidelných bytostí! 
+                🔬 Detailní analýza anatomie nadpřirozených tvorů.
               </p>
             </div>
           </div>
@@ -172,69 +147,74 @@ const HomePage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 to-yellow-500">
+      <section className="py-20 bg-gradient-to-r from-red-900 via-black to-red-800 border-t-2 border-red-600 border-b-2 border-red-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 text-center text-white">
             <div className="animate-fade-in">
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-orange-100">Dětí</div>
+              <div className="text-4xl font-bold mb-2 text-red-400">666+</div>
+              <div className="text-red-200">💀 Obětí</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="text-4xl font-bold mb-2">15+</div>
-              <div className="text-orange-100">Workshopů</div>
+              <div className="text-4xl font-bold mb-2 text-red-400">13+</div>
+              <div className="text-red-200">🧪 Temných Laboratoří</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              <div className="text-4xl font-bold mb-2">8h</div>
-              <div className="text-orange-100">Zábavy</div>
+              <div className="text-4xl font-bold mb-2 text-red-400">24h</div>
+              <div className="text-red-200">🌙 Hrůzy</div>
             </div>
             <div className="animate-fade-in" style={{ animationDelay: "0.6s" }}>
-              <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-orange-100">Zadarmo</div>
+              <div className="text-4xl font-bold mb-2 text-red-400">100%</div>
+              <div className="text-red-200">💀 Strachu</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-900/80 backdrop-blur-sm border-t-2 border-red-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Lorem ipsum dolor sit amet?
+          <h2 className="text-4xl font-bold text-red-400 mb-6 drop-shadow-lg">
+            🦇 Připraveni na nejstrašidelnější zážitek svého života? 🦇
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Připojte se k stovkám rodin, které si užily naši Strašidelnou
-            fakultu UTB! Rezervujte si místo ještě dnes a nezmeškejte tuto
-            kouzelnou příležitost.
+          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            💀 Připojte se k stovkám odvážlivců, kteří přežili naši Strašidelnou fakultu UTB! 
+            <br />
+            🧪 Rezervujte si místo v pekle ještě dnes a nezmeškejte tuto 
+            <br />
+            🌙 jedinečnou příležitost setkat se s nadpřirozenem!
           </p>
           <Link
             to="/reservations"
-            className="inline-block bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-12 py-4 rounded-full text-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200"
+            className="inline-block bg-gradient-to-r from-red-600 to-red-800 text-white px-12 py-4 rounded-full text-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
           >
-            Rezervovat misto
+            💀 Rezervovat místo v Pekle
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-black text-white py-12 border-t-2 border-red-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-              UTB Strašidelná fakulta
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent animate-pulse">
+              🦇 UTB Strašidelná fakulta 🦇
             </h3>
             <p className="text-gray-400 mb-4">
-              Univerzita Tomáše Bati ve Zlíně
+              💀 Univerzita Tomáše Bati ve Zlíně - Temné laboratoře
             </p>
             <div className="flex justify-center space-x-6">
-              <button className="text-gray-400 hover:text-orange-400 transition-colors duration-200 cursor-pointer">
-                Ochrana údajů
+              <button className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse">
+                ⚰️ Ochrana duší
               </button>
-              <button className="text-gray-400 hover:text-orange-400 transition-colors duration-200 cursor-pointer">
-                Podmínky účasti
+              <button className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse">
+                💀 Podmínky přežití
               </button>
-              <button className="text-gray-400 hover:text-orange-400 transition-colors duration-200 cursor-pointer">
-                Kontakt
+              <button className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse">
+                👻 Kontakt s duchy
               </button>
+            </div>
+            <div className="mt-6 text-gray-500 text-sm">
+              🌙 "Věda a nadpřirozeno se setkávají v temnotě..." 🌙
             </div>
           </div>
         </div>

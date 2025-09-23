@@ -80,34 +80,42 @@ const ManageReservation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-red-900 relative overflow-hidden">
+      {/* Creepy Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 border border-red-500 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute bottom-20 left-1/4 w-16 h-16 border border-red-600 rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute top-1/2 right-1/3 w-20 h-20 border border-gray-400 rounded-full animate-pulse" style={{ animationDelay: "3s" }}></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+      <nav className="bg-black/90 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-red-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-                UTB Strašidelná fakulta
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
+                🦇 UTB Strašidelná fakulta 🦇
               </h1>
             </Link>
             <div className="flex space-x-8">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Domů
+                🏠 Domů
               </Link>
               <Link
                 to="/reservations"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Rezervovat
+                💀 Rezervovat
               </Link>
               <Link
                 to="/manage"
-                className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Spravovat
+                ⚰️ Spravovat
               </Link>
             </div>
           </div>
@@ -117,42 +125,43 @@ const ManageReservation = () => {
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Spravovat{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-              Rezervaci
+          <h1 className="text-5xl font-bold text-red-400 mb-4 drop-shadow-2xl">
+            ⚰️ Spravovat{" "}
+            <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
+              Rezervaci v Pekle
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Zadejte svou emailovou adresu pro zobrazení a správu vaši
-            Rezervace
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            👻 Zadejte svou emailovou adresu pro zobrazení a správu vaší
+            <br />
+            💀 rezervace v temných laboratořích hrůzy
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+        <div className="bg-gray-900/80 border-2 border-red-800 rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
           {/* Email Search Form */}
           <form onSubmit={handleEmailSubmit} className="mb-8">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Emailová adresa *
+                <label className="block text-sm font-semibold text-red-300 mb-2">
+                  👻 Emailová adresa z říše mrtvých *
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Zadejte email použitý při rezervaci"
+                  className="w-full px-4 py-3 border border-red-600 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-800 text-white placeholder-gray-400"
+                  placeholder="Zadejte email použitý při rezervaci v pekle"
                 />
               </div>
               <div className="flex items-end">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
                 >
-                  {loading ? "Hledám..." : "Najít Rezervaci"}
+                  {loading ? "🔍 Hledám v pekle..." : "💀 Najít Rezervaci"}
                 </button>
               </div>
             </div>
@@ -160,22 +169,22 @@ const ManageReservation = () => {
 
           {/* Messages */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
-              <p className="text-red-700 font-medium">{error}</p>
+            <div className="mb-6 p-4 bg-red-900/50 border border-red-600 rounded-xl backdrop-blur-sm">
+              <p className="text-red-300 font-medium">💀 {error}</p>
             </div>
           )}
 
           {success && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
-              <p className="text-green-700 font-medium">{success}</p>
+            <div className="mb-6 p-4 bg-green-900/50 border border-green-600 rounded-xl backdrop-blur-sm">
+              <p className="text-green-300 font-medium">👻 {success}</p>
             </div>
           )}
 
           {/* Reservations List */}
           {reservations.length > 0 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Vaše Rezervace
+              <h2 className="text-2xl font-bold text-red-400 mb-6 drop-shadow-lg">
+                💀 Vaše Rezervace v Pekle
               </h2>
 
               {reservations.map((reservation) => (
@@ -183,57 +192,57 @@ const ManageReservation = () => {
                   key={reservation.id}
                   className={`p-6 rounded-2xl border-2 transition-all duration-200 ${
                     reservation.status === "cancelled"
-                      ? "bg-gray-50 border-gray-200 opacity-60"
-                      : "bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200 hover:shadow-lg"
+                      ? "bg-gray-800 border-gray-600 opacity-60"
+                      : "bg-gradient-to-r from-red-900/50 to-red-800/50 border-red-600 hover:shadow-2xl hover:shadow-red-500/20"
                   }`}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
-                        <h3 className="text-xl font-bold text-gray-900">
-                          {reservation.teamName}
+                        <h3 className="text-xl font-bold text-red-300">
+                          💀 {reservation.teamName}
                         </h3>
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
                             reservation.status === "cancelled"
-                              ? "bg-red-100 text-red-700"
-                              : "bg-green-100 text-green-700"
+                              ? "bg-red-900/50 text-red-300 border border-red-600"
+                              : "bg-green-900/50 text-green-300 border border-green-600"
                           }`}
                         >
                           {reservation.status === "cancelled"
-                            ? "Zrušeno"
-                            : "Aktivní"}
+                            ? "⚰️ Zrušeno"
+                            : "👻 Aktivní"}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
                         <div>
-                          <span className="font-semibold text-gray-600">
-                            Čas:
+                          <span className="font-semibold text-red-300">
+                            ⏰ Čas hrůzy:
                           </span>
-                          <p className="text-gray-900">
+                          <p className="text-gray-300">
                             {reservation.timeDisplay}
                           </p>
                         </div>
                         <div>
-                          <span className="font-semibold text-gray-600">
-                            Počet účastníků:
+                          <span className="font-semibold text-red-300">
+                            💀 Počet obětí:
                           </span>
-                          <p className="text-gray-900">
+                          <p className="text-gray-300">
                             {reservation.participantCount}
                           </p>
                         </div>
                         <div>
-                          <span className="font-semibold text-gray-600">
-                            Datum:
+                          <span className="font-semibold text-red-300">
+                            📅 Datum experimentu:
                           </span>
-                          <p className="text-gray-900">{reservation.date}</p>
+                          <p className="text-gray-300">{reservation.date}</p>
                         </div>
                         <div>
-                          <span className="font-semibold text-gray-600">
-                            Email:
+                          <span className="font-semibold text-red-300">
+                            👻 Email duchů:
                           </span>
-                          <p className="text-gray-900">{reservation.email}</p>
+                          <p className="text-gray-300">{reservation.email}</p>
                         </div>
                       </div>
                     </div>
@@ -244,9 +253,9 @@ const ManageReservation = () => {
                           onClick={() =>
                             handleCancelReservation(reservation.id)
                           }
-                          className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg transform hover:scale-105"
+                          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-2xl transform hover:scale-105 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
                         >
-                          Zrušit Rezervaci
+                          ⚰️ Zrušit Rezervaci v Pekle
                         </button>
                       </div>
                     )}
@@ -259,27 +268,15 @@ const ManageReservation = () => {
           {/* No Reservations Found */}
           {reservations.length === 0 && hasSearched && !loading && (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
+              <div className="w-16 h-16 bg-gray-800 border-2 border-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💀</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Žádná rezervace nenalezena
+              <h3 className="text-xl font-semibold text-red-400 mb-2 drop-shadow-lg">
+                ⚰️ Žádná rezervace v pekle nenalezena
               </h3>
-              <p className="text-gray-600">
-                Pro email <strong>{email}</strong> nebyla nalezena žádná
-                rezervace.
+              <p className="text-gray-300">
+                Pro email <strong className="text-red-300">{email}</strong> nebyla nalezena žádná
+                rezervace v temných laboratořích.
               </p>
             </div>
           )}
@@ -289,9 +286,9 @@ const ManageReservation = () => {
         <div className="text-center mt-8">
           <Link
             to="/reservations"
-            className="inline-block bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-block bg-gradient-to-r from-red-600 to-red-800 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
           >
-            Vytvořit Novou Rezervaci
+            💀 Vytvořit Novou Rezervaci v Pekle
           </Link>
         </div>
       </div>

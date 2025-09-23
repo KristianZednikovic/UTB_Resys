@@ -90,34 +90,42 @@ const ReservationPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-yellow-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-red-900 relative overflow-hidden">
+      {/* Creepy Background Elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-32 h-32 border border-red-500 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div className="absolute bottom-20 left-1/4 w-16 h-16 border border-red-600 rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute top-1/2 right-1/3 w-20 h-20 border border-gray-400 rounded-full animate-pulse" style={{ animationDelay: "3s" }}></div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+      <nav className="bg-black/90 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-red-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-                UTB Strašidelná fakulta
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
+                🦇 UTB Strašidelná fakulta 🦇
               </h1>
             </Link>
             <div className="flex space-x-8">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Domů
+                🏠 Domů
               </Link>
               <Link
                 to="/manage"
-                className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Spravovat
+                ⚰️ Spravovat
               </Link>
               <Link
                 to="/reservations"
-                className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium"
+                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
               >
-                Rezervovat
+                💀 Rezervovat
               </Link>
             </div>
           </div>
@@ -127,30 +135,33 @@ const ReservationPage = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Rezervujte si místo na{" "}
-            <span className="bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold text-red-400 mb-4 drop-shadow-2xl">
+            💀 Rezervujte si místo v{" "}
+            <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
               Strašidelné fakultě UTB
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Připojte se k nám na strašidelnou fakultu! Vyplňte formulář níže a
-            zarezervujte si místo.
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            🦇 Připojte se k nám v temných laboratořích hrůzy! 
+            <br />
+            🧪 Vyplňte formulář níže a zarezervujte si místo v pekle.
+            <br />
+            💀 Připravte se na nejstrašidelnější zážitek svého života!
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Reservation Form */}
-          <div className="bg-white rounded-3xl shadow-2xl p-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              Detaily Rezervace
+          <div className="bg-gray-900/80 border-2 border-red-800 rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
+            <h2 className="text-3xl font-bold text-red-400 mb-8 text-center drop-shadow-lg">
+              💀 Detaily Rezervace v Pekle 💀
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Team Information */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Název týmu *
+                <label className="block text-sm font-semibold text-red-300 mb-2">
+                  🦇 Název týmu obětí *
                 </label>
                 <input
                   type="text"
@@ -158,38 +169,38 @@ const ReservationPage = () => {
                   value={formData.team_name}
                   onChange={handleInputChange}
                   required
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
-                    errors.team_name ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-800 text-white placeholder-gray-400 ${
+                    errors.team_name ? 'border-red-500' : 'border-red-600'
                   }`}
-                  placeholder="Zadejte název vašeho týmu"
+                  placeholder="Zadejte název vašeho týmu obětí"
                 />
                 {errors.team_name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.team_name}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.team_name}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Počet účastníků *
+                <label className="block text-sm font-semibold text-red-300 mb-2">
+                  💀 Počet obětí *
                 </label>
                 <select
                   name="team_number"
                   value={formData.team_number}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-red-600 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-800 text-white"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
                     <option key={num} value={num}>
-                      {num} {num === 1 ? "Účastník" : "Účastníků"}
+                      {num} {num === 1 ? "Oběť" : "Obětí"}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Emailová adresa *
+                <label className="block text-sm font-semibold text-red-300 mb-2">
+                  👻 Emailová adresa *
                 </label>
                 <input
                   type="email"
@@ -197,19 +208,19 @@ const ReservationPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-800 text-white placeholder-gray-400 ${
+                    errors.email ? 'border-red-500' : 'border-red-600'
                   }`}
                   placeholder="Zadejte váš email"
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.email}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Čas (10min intervaly) *
+                <label className="block text-sm font-semibold text-red-300 mb-2">
+                  ⏰ Čas experimentu (10min intervaly) *
                 </label>
                 <select
                   name="time_slot"
@@ -217,11 +228,11 @@ const ReservationPage = () => {
                   onChange={handleInputChange}
                   onClick={fetchTimeAvailability}
                   required
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
-                    errors.time_slot ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-800 text-white ${
+                    errors.time_slot ? 'border-red-500' : 'border-red-600'
                   }`}
                 >
-                  <option value="">Vyberte čas</option>
+                  <option value="">Vyberte čas hrůzy</option>
                   {[
                     { value: "15:00", label: "15:00 - 15:10" },
                     { value: "15:10", label: "15:10 - 15:20" },
@@ -262,30 +273,30 @@ const ReservationPage = () => {
                         }}
                         disabled={isTaken}
                       >
-                        {slot.label} {isTaken ? '(Obsazeno)' : isAvailable ? '(Dostupné)' : ''}
+                        {slot.label} {isTaken ? '(Obsazeno peklem)' : isAvailable ? '(Dostupné pro hrůzu)' : ''}
                       </option>
                     );
                   })}
                 </select>
                 {errors.time_slot && (
-                  <p className="text-red-500 text-sm mt-1">{errors.time_slot}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.time_slot}</p>
                 )}
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-4 rounded-xl text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                className="w-full bg-gradient-to-r from-red-600 to-red-800 text-white py-4 rounded-xl text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
               >
-                Potvrdit Rezervaci
+                💀 Potvrdit Rezervaci v Pekle
               </button>
 
               <div className="text-center mt-4">
-                <p className="text-gray-600 mb-3">Už máte rezervaci?</p>
+                <p className="text-gray-300 mb-3">Už máte rezervaci v pekle?</p>
                 <Link
                   to="/manage"
-                  className="inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg transform hover:scale-105"
+                  className="inline-block bg-gray-800 hover:bg-gray-700 text-gray-300 px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg transform hover:scale-105 border border-red-600 hover:border-red-500"
                 >
-                  Spravovat Existující Rezervace
+                  ⚰️ Spravovat Existující Rezervace
                 </Link>
               </div>
             </form>
@@ -294,52 +305,28 @@ const ReservationPage = () => {
           {/* Information Panel */}
           <div className="space-y-8">
             {/* Contact Info */}
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Kontaktní informace
+            <div className="bg-gray-900/80 border-2 border-red-800 rounded-3xl shadow-2xl p-8 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-red-400 mb-6 drop-shadow-lg">
+                👻 Kontaktní informace z říše mrtvých
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center border border-red-400">
+                    <span className="text-xl">📞</span>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Telefon</p>
-                    <p className="text-gray-600">+420 739 271 855</p>
+                    <p className="font-semibold text-red-300">Telefon do pekla</p>
+                    <p className="text-gray-300">+420 739 271 855</p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded-full flex items-center justify-center border border-red-400">
+                    <span className="text-xl">📧</span>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Email</p>
-                    <p className="text-gray-600">propagace@fai.utb.cz</p>
+                    <p className="font-semibold text-red-300">Email duchů</p>
+                    <p className="text-gray-300">propagace@fai.utb.cz</p>
                   </div>
                 </div>
               </div>

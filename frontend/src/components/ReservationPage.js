@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ReservationPage = () => {
@@ -9,6 +9,24 @@ const ReservationPage = () => {
     time_slot: "",
   });
   const [errors, setErrors] = useState({});
+  const [timeAvailability, setTimeAvailability] = useState({});
+
+  // Fetch time slot availability on component mount
+  useEffect(() => {
+    const fetchTimeAvailability = async () => {
+      try {
+        const response = await fetch("./backend/get_time_availability.php");
+        if (response.ok) {
+          const data = await response.json();
+          setTimeAvailability(data.availability);
+        }
+      } catch (error) {
+        console.error("Failed to fetch time availability:", error);
+      }
+    };
+    
+    fetchTimeAvailability();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,6 +81,13 @@ const ReservationPage = () => {
         time_slot: "",
       });
       setErrors({});
+      
+      // Refresh time availability
+      const availabilityResponse = await fetch("./backend/get_time_availability.php");
+      if (availabilityResponse.ok) {
+        const availabilityData = await availabilityResponse.json();
+        setTimeAvailability(availabilityData.availability);
+      }
     } catch (err) {
       alert(`Chyba při vytváření rezervace: ${err.message}`);
     }
@@ -200,31 +225,50 @@ const ReservationPage = () => {
                   }`}
                 >
                   <option value="">Vyberte čas</option>
-                  <option value="15:00">15:00 - 15:10</option>
-                  <option value="15:10">15:10 - 15:20</option>
-                  <option value="15:20">15:20 - 15:30</option>
-                  <option value="15:30">15:30 - 15:40</option>
-                  <option value="15:40">15:40 - 15:50</option>
-                  <option value="16:00">16:00 - 16:10</option>
-                  <option value="16:10">16:10 - 16:20</option>
-                  <option value="16:20">16:20 - 16:30</option>
-                  <option value="16:30">16:30 - 16:40</option>
-                  <option value="16:40">16:40 - 16:50</option>
-                  <option value="17:00">17:00 - 17:10</option>
-                  <option value="17:10">17:10 - 17:20</option>
-                  <option value="17:20">17:20 - 17:30</option>
-                  <option value="17:30">17:30 - 17:40</option>
-                  <option value="17:40">17:40 - 17:50</option>
-                  <option value="18:00">18:00 - 18:10</option>
-                  <option value="18:10">18:10 - 18:20</option>
-                  <option value="18:20">18:20 - 18:30</option>
-                  <option value="18:30">18:30 - 18:40</option>
-                  <option value="18:40">18:40 - 18:50</option>
-                  <option value="19:00">19:00 - 19:10</option>
-                  <option value="19:10">19:10 - 19:20</option>
-                  <option value="19:20">19:20 - 19:30</option>
-                  <option value="19:30">19:30 - 19:40</option>
-                  <option value="19:40">19:40 - 19:50</option>
+                  {[
+                    { value: "15:00", label: "15:00 - 15:10" },
+                    { value: "15:10", label: "15:10 - 15:20" },
+                    { value: "15:20", label: "15:20 - 15:30" },
+                    { value: "15:30", label: "15:30 - 15:40" },
+                    { value: "15:40", label: "15:40 - 15:50" },
+                    { value: "16:00", label: "16:00 - 16:10" },
+                    { value: "16:10", label: "16:10 - 16:20" },
+                    { value: "16:20", label: "16:20 - 16:30" },
+                    { value: "16:30", label: "16:30 - 16:40" },
+                    { value: "16:40", label: "16:40 - 16:50" },
+                    { value: "17:00", label: "17:00 - 17:10" },
+                    { value: "17:10", label: "17:10 - 17:20" },
+                    { value: "17:20", label: "17:20 - 17:30" },
+                    { value: "17:30", label: "17:30 - 17:40" },
+                    { value: "17:40", label: "17:40 - 17:50" },
+                    { value: "18:00", label: "18:00 - 18:10" },
+                    { value: "18:10", label: "18:10 - 18:20" },
+                    { value: "18:20", label: "18:20 - 18:30" },
+                    { value: "18:30", label: "18:30 - 18:40" },
+                    { value: "18:40", label: "18:40 - 18:50" },
+                    { value: "19:00", label: "19:00 - 19:10" },
+                    { value: "19:10", label: "19:10 - 19:20" },
+                    { value: "19:20", label: "19:20 - 19:30" },
+                    { value: "19:30", label: "19:30 - 19:40" },
+                    { value: "19:40", label: "19:40 - 19:50" }
+                  ].map((slot) => {
+                    const isAvailable = timeAvailability[slot.value] !== false;
+                    const isTaken = timeAvailability[slot.value] === false;
+                    
+                    return (
+                      <option 
+                        key={slot.value} 
+                        value={slot.value}
+                        style={{
+                          backgroundColor: isTaken ? '#fee2e2' : isAvailable ? '#dcfce7' : 'white',
+                          color: isTaken ? '#dc2626' : isAvailable ? '#16a34a' : 'black'
+                        }}
+                        disabled={isTaken}
+                      >
+                        {slot.label} {isTaken ? '(Obsazeno)' : isAvailable ? '(Dostupné)' : ''}
+                      </option>
+                    );
+                  })}
                 </select>
                 {errors.time_slot && (
                   <p className="text-red-500 text-sm mt-1">{errors.time_slot}</p>
@@ -298,7 +342,7 @@ const ReservationPage = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">Email</p>
-                    <p className="text-gray-600">strasidelnafakulta@utb.cz</p>
+                    <p className="text-gray-600">propagace@fai.utb.cz</p>
                   </div>
                 </div>
               </div>

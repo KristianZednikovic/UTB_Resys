@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const ReservationPage = () => {
   const [formData, setFormData] = useState({
-    teamName: "",
-    participantCount: 1,
+    team_name: "",
+    team_number: 1,
     email: "",
-    time: "",
+    time_slot: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,7 +21,7 @@ const ReservationPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/reservations", {
+      const response = await fetch("./backend/create_reservation.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,10 +39,10 @@ const ReservationPage = () => {
 
       // Reset form
       setFormData({
-        teamName: "",
-        participantCount: 1,
+        team_name: "",
+        team_number: 1,
         email: "",
-        time: "",
+        time_slot: "",
       });
     } catch (err) {
       alert(`Chyba při vytváření rezervace: ${err.message}`);
@@ -114,8 +114,8 @@ const ReservationPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="teamName"
-                  value={formData.teamName}
+                  name="team_name"
+                  value={formData.team_name}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
@@ -128,8 +128,8 @@ const ReservationPage = () => {
                   Počet účastníků *
                 </label>
                 <select
-                  name="participantCount"
-                  value={formData.participantCount}
+                  name="team_number"
+                  value={formData.team_number}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
@@ -162,8 +162,8 @@ const ReservationPage = () => {
                   Čas (10min intervaly) *
                 </label>
                 <select
-                  name="time"
-                  value={formData.time}
+                  name="time_slot"
+                  value={formData.time_slot}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"

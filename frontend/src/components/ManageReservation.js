@@ -21,7 +21,7 @@ const ManageReservation = () => {
 
     try {
       const response = await fetch(
-        `/api/reservations?email=${encodeURIComponent(email)}`
+        `./backend/get_reservations.php?email=${encodeURIComponent(email)}`
       );
 
       if (!response.ok) {
@@ -46,13 +46,16 @@ const ManageReservation = () => {
 
     try {
       const response = await fetch(
-        `/api/reservations/${reservationId}/cancel`,
+        `./backend/cancel_reservation.php`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({ 
+            reservationId: reservationId,
+            email: email 
+          }),
         }
       );
 

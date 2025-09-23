@@ -76,7 +76,7 @@ try {
             'team_number' => (int)$reservation['team_number'],
             'email'       => $reservation['email'],
             'time_slot'   => $reservation['time_slot'],
-            'date'        => date('d.m.Y', strtotime($reservation['reg_date'])), // use reg_date
+            'date'        => date('d.m.Y', strtotime($reservation['created_at'])),
             // 'status'    => 'active', // only if you add such a column
         ]
     ];

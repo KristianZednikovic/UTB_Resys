@@ -8,6 +8,7 @@ const ReservationPage = () => {
     email: "",
     time_slot: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,10 +16,18 @@ const ReservationPage = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: null,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({}); // Clear previous errors
 
     try {
       const response = await fetch("./backend/create_reservation.php", {
@@ -31,6 +40,15 @@ const ReservationPage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        
+        // If the error has a field property, show it next to that field
+        if (errorData.field) {
+          setErrors({
+            [errorData.field]: errorData.error
+          });
+          return;
+        }
+        
         throw new Error(errorData.error || "Failed to create reservation");
       }
 
@@ -44,6 +62,7 @@ const ReservationPage = () => {
         email: "",
         time_slot: "",
       });
+      setErrors({});
     } catch (err) {
       alert(`Chyba při vytváření rezervace: ${err.message}`);
     }
@@ -118,9 +137,14 @@ const ReservationPage = () => {
                   value={formData.team_name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
+                    errors.team_name ? 'border-red-500' : 'border-gray-300'
+                  }`}
                   placeholder="Zadejte název vašeho týmu"
                 />
+                {errors.team_name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.team_name}</p>
+                )}
               </div>
 
               <div>
@@ -152,9 +176,14 @@ const ReservationPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
+                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  }`}
                   placeholder="Zadejte váš email"
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
               </div>
 
               <div>
@@ -166,7 +195,9 @@ const ReservationPage = () => {
                   value={formData.time_slot}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
+                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 ${
+                    errors.time_slot ? 'border-red-500' : 'border-gray-300'
+                  }`}
                 >
                   <option value="">Vyberte čas</option>
                   <option value="15:00">15:00 - 15:10</option>
@@ -195,6 +226,9 @@ const ReservationPage = () => {
                   <option value="19:30">19:30 - 19:40</option>
                   <option value="19:40">19:40 - 19:50</option>
                 </select>
+                {errors.time_slot && (
+                  <p className="text-red-500 text-sm mt-1">{errors.time_slot}</p>
+                )}
               </div>
 
               <button

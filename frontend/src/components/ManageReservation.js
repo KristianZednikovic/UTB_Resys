@@ -33,7 +33,7 @@ const ManageReservation = () => {
       setReservations(data.reservations);
       setSuccess(`Našli jsme ${data.count} rezervaci pro email ${email}`);
     } catch (err) {
-      setError("Chyba při načítání rezervací. Zkuste to prosím znovu.");
+      setError("Chyba při načítání rezervace. Zkuste to prosím znovu.");
     } finally {
       setLoading(false);
     }
@@ -118,12 +118,12 @@ const ManageReservation = () => {
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             Spravovat{" "}
             <span className="bg-gradient-to-r from-orange-500 to-yellow-500 bg-clip-text text-transparent">
-              Rezervace
+              Rezervaci
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Zadejte svou emailovou adresu pro zobrazení a správu vašich
-            rezervací
+            Zadejte svou emailovou adresu pro zobrazení a správu vaši
+            Rezervace
           </p>
         </div>
 
@@ -150,7 +150,7 @@ const ManageReservation = () => {
                   disabled={loading}
                   className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  {loading ? "Hledám..." : "Najít Rezervace"}
+                  {loading ? "Hledám..." : "Najít Rezervaci"}
                 </button>
               </div>
             </div>
@@ -273,10 +273,10 @@ const ManageReservation = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Žádné rezervace nenalezeny
+                Žádná rezervace nenalezena
               </h3>
               <p className="text-gray-600">
-                Pro email <strong>{email}</strong> nebyly nalezeny žádné
+                Pro email <strong>{email}</strong> nebyla nalezena žádná
                 rezervace.
               </p>
             </div>

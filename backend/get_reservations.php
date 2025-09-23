@@ -20,10 +20,10 @@ if (!$pdo) { http_response_code(500); echo json_encode(['error'=>'Database conne
 try {
     // Only use columns that exist in your schema
     $stmt = $pdo->prepare("
-        SELECT id, team_name, team_number, email, time_slot, created_at
+        SELECT id, team_name, team_number, email, time_slot, reg_date
         FROM reservations
         WHERE email = ?
-        ORDER BY created_at DESC
+        ORDER BY reg_date DESC
     ");
     $stmt->execute([$email]);
     $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,7 +37,7 @@ try {
             'email'            => $r['email'],
             'time'             => $r['time_slot'],            // was time
             'timeDisplay'      => formatTimeDisplay($r['time_slot']),
-            'date'             => date('d.m.Y', strtotime($r['created_at'])),
+            'date'             => date('d.m.Y', strtotime($r['reg_date'])), // was created_at
             'status'           => 'active',                    // table has no status; return a sensible constant if your UI expects it
         ];
     }, $reservations);

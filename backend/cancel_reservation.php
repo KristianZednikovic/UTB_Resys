@@ -33,7 +33,7 @@ if (!$pdo) { http_response_code(500); echo json_encode(['error'=>'Database conne
 try {
     // 1) Find reservation by id + email
     $stmt = $pdo->prepare("
-        SELECT id, team_name, team_number, email, time_slot, created_at
+        SELECT id, team_name, team_number, email, time_slot, reg_date
         FROM reservations
         WHERE id = ? AND email = ?
     ");
@@ -59,7 +59,7 @@ try {
             'email'            => $reservation['email'],
             'time'             => $reservation['time_slot'],
             'timeDisplay'      => formatTimeDisplay($reservation['time_slot']),
-            'date'             => date('d.m.Y', strtotime($reservation['created_at'])),
+            'date'             => date('d.m.Y', strtotime($reservation['reg_date'])),
             'status'           => 'cancelled', // logical status for the client
         ]
     ];

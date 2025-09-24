@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
 
 const ReservationPage = () => {
   const [formData, setFormData] = useState({
@@ -186,37 +187,7 @@ const ReservationPage = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="bg-black/90 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-red-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-red-500 via-red-600 to-red-800 bg-clip-text text-transparent animate-pulse">
-                🦇 UTB Strašidelná fakulta 🦇
-              </h1>
-            </Link>
-            <div className="flex space-x-8">
-              <Link
-                to="/"
-                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
-              >
-                🏠 Domů
-              </Link>
-              <Link
-                to="/manage"
-                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
-              >
-                ⚰️ Spravovat
-              </Link>
-              <Link
-                to="/reservations"
-                className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
-              >
-                💀 Rezervovat
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

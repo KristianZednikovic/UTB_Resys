@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
 import Popup from "./Popup";
+import LightRays from "./LightRays";
 
 const ReservationPage = () => {
   const [formData, setFormData] = useState({
@@ -188,7 +189,24 @@ const ReservationPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-red-900 relative overflow-hidden">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Light Rays Background */}
+      <div style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0 }}>
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ff0000"
+          raysSpeed={1.5}
+          lightSpread={0.8}
+          rayLength={2.5}
+          fadeDistance={2.0}
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.1}
+          distortion={0.05}
+          className="custom-rays"
+        />
+      </div>
+      
       {/* Creepy Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 border border-red-500 rounded-full animate-pulse"></div>

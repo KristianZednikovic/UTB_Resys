@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
+import Popup from "./Popup";
 
 const ReservationPage = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,16 @@ const ReservationPage = () => {
   const [errors2, setErrors2] = useState({});
   const [timeAvailability, setTimeAvailability] = useState({});
   const [timeAvailability2, setTimeAvailability2] = useState({});
+  const [activePopup, setActivePopup] = useState(null);
+
+  const openPopup = (popupType) => {
+    console.log('Opening popup:', popupType);
+    setActivePopup(popupType);
+  };
+
+  const closePopup = () => {
+    setActivePopup(null);
+  };
 
   // Fetch time slot availability when dropdown is clicked
   const fetchTimeAvailability = async () => {
@@ -564,6 +575,203 @@ const ReservationPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-black text-white py-12 border-t-2 border-red-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent animate-pulse">
+              🦇 UTB Strašidelná fakulta 🦇
+            </h3>
+            <p className="text-gray-400 mb-4">
+              💀 Univerzita Tomáše Bati ve Zlíně - Temné laboratoře
+            </p>
+            <div className="flex justify-center space-x-6 relative z-10">
+              <button 
+                onClick={() => openPopup('ochrana')}
+                className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse px-2 py-1 relative z-10"
+                type="button"
+              >
+                ⚰️ Ochrana duší
+              </button>
+              <button 
+                onClick={() => openPopup('podminky')}
+                className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse px-2 py-1 relative z-10"
+                type="button"
+              >
+                💀 Podmínky přežití
+              </button>
+              <button 
+                onClick={() => openPopup('kontakt')}
+                className="text-gray-400 hover:text-red-400 transition-colors duration-200 cursor-pointer hover:animate-pulse px-2 py-1 relative z-10"
+                type="button"
+              >
+                👻 Kontakt s duchy
+              </button>
+            </div>
+            <div className="mt-6 text-gray-500 text-sm">
+              🌙 "Věda a nadpřirozeno se setkávají v temnotě..." 🌙
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Popups */}
+      <Popup 
+        isOpen={activePopup === 'ochrana'} 
+        onClose={closePopup} 
+        title="⚰️ Ochrana duší"
+      >
+        <div className="space-y-6">
+          <div className="bg-red-900/20 border border-red-600 rounded-2xl p-6">
+            <h3 className="text-2xl font-bold text-red-400 mb-4">🛡️ Ochrana vaší duše</h3>
+            <p className="text-gray-300 leading-relaxed">
+              V našich temných laboratořích bereme ochranu duší velmi vážně. Každý návštěvník je pod 
+              neustálým dohledem našich duchovních ochránců a je vybaven speciálními amulety proti 
+              nadpřirozeným útokům.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">🔮 Duchovní ochrana</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Speciální amulety proti duchům</li>
+                <li>• Ochranné kruhy kolem experimentů</li>
+                <li>• Duchovní průvodci 24/7</li>
+                <li>• Exorcistické rituály v případě potřeby</li>
+              </ul>
+            </div>
+            
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">⚡ Bezpečnostní opatření</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Neustálý monitoring duší</li>
+                <li>• Okamžitá evakuace při nebezpečí</li>
+                <li>• Léčebné rituály po experimentech</li>
+                <li>• Psychologická podpora duchů</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-500 rounded-2xl p-6">
+            <h4 className="text-xl font-bold text-red-300 mb-3">⚠️ Důležité upozornění</h4>
+            <p className="text-gray-300">
+              I přes všechna bezpečnostní opatření si uvědomte, že experimenty s nadpřirozenem 
+              nesou určitá rizika. Naše laboratoře jsou vybaveny nejmodernějšími ochrannými systémy, 
+              ale 100% bezpečnost nelze zaručit v říši duchů.
+            </p>
+          </div>
+        </div>
+      </Popup>
+
+      <Popup 
+        isOpen={activePopup === 'podminky'} 
+        onClose={closePopup} 
+        title="💀 Podmínky přežití"
+      >
+        <div className="space-y-6">
+          <div className="bg-red-900/20 border border-red-600 rounded-2xl p-6">
+            <h3 className="text-2xl font-bold text-red-400 mb-4">📋 Pravidla pro přežití</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Aby jste přežili návštěvu našich temných laboratoří, musíte dodržovat následující 
+              podmínky. Porušení těchto pravidel může vést k trvalému pobytu v říši mrtvých.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">✅ Povinnosti návštěvníka</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Dodržovat pokyny duchovních průvodců</li>
+                <li>• Nenarušovat experimenty s duchy</li>
+                <li>• Respektovat nadpřirozené bytosti</li>
+                <li>• Nepoužívat mobilní telefony v laboratořích</li>
+                <li>• Zachovat ticho během rituálů</li>
+              </ul>
+            </div>
+            
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">❌ Zakázané činnosti</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Fotografování duchů bez povolení</li>
+                <li>• Dotýkání se experimentálních vzorků</li>
+                <li>• Křik nebo panika při setkání s duchy</li>
+                <li>• Opouštění laboratoří bez doprovodu</li>
+                <li>• Pokusy o komunikaci s duchy samostatně</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-500 rounded-2xl p-6">
+            <h4 className="text-xl font-bold text-red-300 mb-3">⚖️ Právní odpovědnost</h4>
+            <p className="text-gray-300">
+              Univerzita Tomáše Bati ve Zlíně neručí za případné duševní trauma, posedlost duchy 
+              nebo trvalé změny v chování způsobené návštěvou temných laboratoří. Vstupem do 
+              laboratoří souhlasíte s těmito podmínkami.
+            </p>
+          </div>
+        </div>
+      </Popup>
+
+      <Popup 
+        isOpen={activePopup === 'kontakt'} 
+        onClose={closePopup} 
+        title="👻 Kontakt s duchy"
+      >
+        <div className="space-y-6">
+          <div className="bg-red-900/20 border border-red-600 rounded-2xl p-6">
+            <h3 className="text-2xl font-bold text-red-400 mb-4">🔮 Komunikace s nadpřirozenem</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Naše laboratoře jsou vybaveny nejmodernějšími technologiemi pro komunikaci s duchy. 
+              Naučíte se používat různé metody kontaktu s říší mrtvých pod dohledem zkušených 
+              duchovních průvodců.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">📡 Technologie komunikace</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• EVP (Electronic Voice Phenomena) rekordéry</li>
+                <li>• EMF detektory pro detekci duchů</li>
+                <li>• Teploměry pro měření duchovních teplot</li>
+                <li>• Speciální kamery pro zachycení duchů</li>
+                <li>• Ouija desky pro přímou komunikaci</li>
+              </ul>
+            </div>
+            
+            <div className="bg-gray-800/50 border border-red-700 rounded-xl p-4">
+              <h4 className="text-lg font-semibold text-red-300 mb-3">🧙‍♀️ Tradiční metody</h4>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Meditace pro otevření třetího oka</li>
+                <li>• Rituály pro přivolání duchů</li>
+                <li>• Použití křišťálových koulí</li>
+                <li>• Tarot karty pro komunikaci</li>
+                <li>• Svíčky a kadidlo pro ochranu</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-red-900/30 to-red-800/30 border border-red-500 rounded-2xl p-6">
+            <h4 className="text-xl font-bold text-red-300 mb-3">📞 Kontaktní informace</h4>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-300">
+              <div>
+                <p className="font-semibold text-red-300">📞 Telefon do pekla:</p>
+                <p>+420 739 271 855</p>
+              </div>
+              <div>
+                <p className="font-semibold text-red-300">📧 Email duchů:</p>
+                <p>propagace@fai.utb.cz</p>
+              </div>
+            </div>
+            <p className="mt-4 text-gray-300">
+              Pro rezervaci místa v temných laboratořích nebo dotazy ohledně komunikace s duchy 
+              nás neváhejte kontaktovat. Naši duchovní průvodci jsou k dispozici 24/7.
+            </p>
+          </div>
+        </div>
+      </Popup>
     </div>
   );
 };

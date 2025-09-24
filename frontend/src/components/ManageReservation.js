@@ -109,7 +109,7 @@ const ManageReservation = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden flex flex-col">
       {/* Light Rays Background */}
-      <div style={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0 }}>
+      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, minHeight: '100vh' }}>
         <LightRays
           raysOrigin="top-center"
           raysColor="#ff0000"

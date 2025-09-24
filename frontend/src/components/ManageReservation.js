@@ -22,44 +22,58 @@ const ManageReservation = () => {
     setHasSearched(true);
 
     try {
-      const response = await fetch(
-        `./backend/get_reservations.php?email=${encodeURIComponent(email)}`
-      );
+      // Fetch from both tables
+      const [response1, response2] = await Promise.all([
+        fetch(`./backend/get_reservations.php?email=${encodeURIComponent(email)}`),
+        fetch(`./backend/get_reservations_mira.php?email=${encodeURIComponent(email)}`)
+      ]);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      let allReservations = [];
+      let totalCount = 0;
+
+      if (response1.ok) {
+        const data1 = await response1.json();
+        const reservations1 = data1.reservations.map(r => ({ ...r, table: 'reservations' }));
+        allReservations = [...allReservations, ...reservations1];
+        totalCount += data1.count;
       }
 
-      const data = await response.json();
+      if (response2.ok) {
+        const data2 = await response2.json();
+        const reservations2 = data2.reservations.map(r => ({ ...r, table: 'reservations_mira' }));
+        allReservations = [...allReservations, ...reservations2];
+        totalCount += data2.count;
+      }
 
-      setReservations(data.reservations);
-      setSuccess(`Našli jsme ${data.count} rezervaci pro email ${email}`);
+      setReservations(allReservations);
+      setSuccess(`Našli jsme ${totalCount} rezervací pro email ${email} (${allReservations.filter(r => r.table === 'reservations').length} z první tabulky, ${allReservations.filter(r => r.table === 'reservations_mira').length} z druhé tabulky)`);
     } catch (err) {
-      setError("Chyba při načítání rezervace. Zkuste to prosím znovu.");
+      setError("Chyba při načítání rezervací. Zkuste to prosím znovu.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCancelReservation = async (reservationId) => {
+  const handleCancelReservation = async (reservationId, table) => {
     if (!window.confirm("Opravdu chcete zrušit tuto rezervaci?")) {
       return;
     }
 
     try {
-      const response = await fetch(
-        `./backend/cancel_reservation.php`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            reservationId: reservationId,
-            email: email 
-          }),
-        }
-      );
+      const endpoint = table === 'reservations_mira' 
+        ? './backend/cancel_reservation_mira.php'
+        : './backend/cancel_reservation.php';
+        
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          reservationId: reservationId,
+          email: email 
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -69,7 +83,7 @@ const ManageReservation = () => {
       const data = await response.json();
 
       setReservations((prev) =>
-        prev.map((res) => (res.id === reservationId ? data.reservation : res))
+        prev.map((res) => (res.id === reservationId ? { ...data.reservation, table: table } : res))
       );
       setSuccess("Rezervace byla úspěšně zrušena");
     } catch (err) {
@@ -202,17 +216,22 @@ const ManageReservation = () => {
                         <h3 className="text-xl font-bold text-red-300">
                           💀 {reservation.teamName}
                         </h3>
-                        <span
-                          className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            reservation.status === "cancelled"
-                              ? "bg-red-900/50 text-red-300 border border-red-600"
-                              : "bg-green-900/50 text-green-300 border border-green-600"
-                          }`}
-                        >
-                          {reservation.status === "cancelled"
-                            ? "⚰️ Zrušeno"
-                            : "👻 Aktivní"}
-                        </span>
+                        <div className="flex gap-2">
+                          <span
+                            className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              reservation.status === "cancelled"
+                                ? "bg-red-900/50 text-red-300 border border-red-600"
+                                : "bg-green-900/50 text-green-300 border border-green-600"
+                            }`}
+                          >
+                            {reservation.status === "cancelled"
+                              ? "⚰️ Zrušeno"
+                              : "👻 Aktivní"}
+                          </span>
+                          <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-300 border border-blue-600">
+                            {reservation.table === 'reservations_mira' ? '🧪 Tabulka 2' : '💀 Tabulka 1'}
+                          </span>
+                        </div>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
@@ -251,7 +270,7 @@ const ManageReservation = () => {
                       <div className="flex flex-col sm:flex-row gap-2">
                         <button
                           onClick={() =>
-                            handleCancelReservation(reservation.id)
+                            handleCancelReservation(reservation.id, reservation.table)
                           }
                           className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-2xl transform hover:scale-105 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
                         >

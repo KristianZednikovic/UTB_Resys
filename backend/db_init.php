@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 }
 
 // sql to create table
-$sql = "CREATE TABLE reservations (
+$sql = "CREATE TABLE reservations_mira (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 team_name VARCHAR(50) NOT NULL,
 team_number INT(6) NOT NULL,

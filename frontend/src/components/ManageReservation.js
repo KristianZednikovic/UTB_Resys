@@ -140,7 +140,7 @@ const ManageReservation = () => {
                   placeholder="Zadejte email použitý při rezervaci v pekle"
                 />
               </div>
-              <div className="flex items-end">
+              <div className="flex items-end sm:items-end sm:justify-start justify-center">
                 <button
                   type="submit"
                   disabled={loading}

@@ -283,6 +283,19 @@ const ReservationPage = () => {
                 )}
               </div>
 
+              {/* GDPR Consent Checkbox */}
+              <div className="flex items-start space-x-3">
+                <input
+                  type="checkbox"
+                  id="gdpr-consent"
+                  required
+                  className="mt-1 w-5 h-5 text-red-600 bg-gray-800 border-red-600 rounded"
+                />
+                <label htmlFor="gdpr-consent" className="text-sm text-gray-300 leading-relaxed">
+                  Souhlasím se zpracováním osobních údajů v souladu s GDPR pro účely této rezervace v temných laboratořích.
+                </label>
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-red-800 text-white py-4 rounded-xl text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-200 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"

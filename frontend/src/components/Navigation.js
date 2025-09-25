@@ -39,6 +39,12 @@ const Navigation = () => {
             >
               💀 Rezervovat
             </Link>
+            <Link
+              to="/info"
+              className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-2 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
+            >
+              📊 Info
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -99,6 +105,13 @@ const Navigation = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 💀 Rezervovat
+              </Link>
+              <Link
+                to="/info"
+                className="block bg-gradient-to-r from-red-600 to-red-800 text-white px-4 py-3 rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-200 font-medium border border-red-400 hover:border-red-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                📊 Info
               </Link>
             </div>
           </div>

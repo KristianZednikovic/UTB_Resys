@@ -26,8 +26,8 @@ const QRCodePopup = ({ isOpen, onClose, reservationData }) => {
         width: 300,
         margin: 2,
         color: {
-          dark: '#dc2626', // Red color to match the theme
-          light: '#000000' // Black background
+          dark: '#000000', // Black QR code
+          light: '#ffffff' // White background
         }
       });
       

@@ -5,6 +5,8 @@ import ReservationPage from "./components/ReservationPage";
 import ManageReservation from "./components/ManageReservation";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
+import QRScanner from "./components/QRScanner";
+import InfoPage from "./components/InfoPage";
 import "./App.css";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/reservations" element={<ReservationPage />} />
           <Route path="/manage" element={<ManageReservation />} />
+          <Route path="/scanqr" element={<QRScanner />} />
+          <Route path="/info" element={<InfoPage />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>

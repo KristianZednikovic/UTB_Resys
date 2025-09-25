@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
 import Popup from "./Popup";
 import LightRays from "./LightRays";
+import QRCodePopup from "./QRCodePopup";
 
 const ManageReservation = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,8 @@ const ManageReservation = () => {
   const [success, setSuccess] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
   const [activePopup, setActivePopup] = useState(null);
+  const [qrPopupOpen, setQrPopupOpen] = useState(false);
+  const [qrReservationData, setQrReservationData] = useState(null);
 
   const openPopup = (popupType) => {
     console.log('Opening popup:', popupType);
@@ -20,6 +23,17 @@ const ManageReservation = () => {
 
   const closePopup = () => {
     setActivePopup(null);
+  };
+
+  const showQRCode = (reservation) => {
+    setQrReservationData({
+      id: reservation.id,
+      team_name: reservation.teamName,
+      team_number: reservation.participantCount,
+      email: reservation.email,
+      time_slot: reservation.timeDisplay
+    });
+    setQrPopupOpen(true);
   };
 
   const handleEmailSubmit = async (e) => {
@@ -217,24 +231,18 @@ const ManageReservation = () => {
                           💀 {reservation.teamName}
                         </h3>
                         <div className="flex gap-2">
-                          <span
-                            className={`px-3 py-1 rounded-full text-sm font-medium ${
-                              reservation.status === "cancelled"
-                                ? "bg-red-900/50 text-red-300 border border-red-600"
-                                : "bg-green-900/50 text-green-300 border border-green-600"
-                            }`}
-                          >
-                            {reservation.status === "cancelled"
-                              ? "⚰️ Zrušeno"
-                              : "👻 Aktivní"}
-                          </span>
+                          {reservation.status === "cancelled" && (
+                            <span className="px-3 py-1 rounded-full text-sm font-medium bg-red-900/50 text-red-300 border border-red-600">
+                              ⚰️ Zrušeno
+                            </span>
+                          )}
                           <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-300 border border-blue-600">
                             {reservation.table === 'reservations_mira' ? '🧪 Tabulka 2' : '💀 Tabulka 1'}
                           </span>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                         <div>
                           <span className="font-semibold text-red-300">
                             ⏰ Čas hrůzy:
@@ -253,12 +261,6 @@ const ManageReservation = () => {
                         </div>
                         <div>
                           <span className="font-semibold text-red-300">
-                            📅 Datum experimentu:
-                          </span>
-                          <p className="text-gray-300">{reservation.date}</p>
-                        </div>
-                        <div>
-                          <span className="font-semibold text-red-300">
                             👻 Email duchů:
                           </span>
                           <p className="text-gray-300">{reservation.email}</p>
@@ -267,14 +269,20 @@ const ManageReservation = () => {
                     </div>
 
                     {reservation.status === "active" && (
-                      <div className="flex flex-col sm:flex-row gap-2">
+                      <div className="flex flex-col gap-3 min-w-[200px]">
+                        <button
+                          onClick={() => showQRCode(reservation)}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105 border border-blue-400 hover:border-blue-300 text-sm"
+                        >
+                          📱 QR Kód
+                        </button>
                         <button
                           onClick={() =>
                             handleCancelReservation(reservation.id, reservation.table)
                           }
-                          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:shadow-2xl transform hover:scale-105 border-2 border-red-400 hover:border-red-300 shadow-red-500/50"
+                          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105 border border-red-400 hover:border-red-300 text-sm"
                         >
-                          ⚰️ Zrušit Rezervaci v Pekle
+                          ⚰️ Zrušit
                         </button>
                       </div>
                     )}
@@ -508,6 +516,13 @@ const ManageReservation = () => {
           </div>
         </div>
       </Popup>
+
+      {/* QR Code Popup */}
+      <QRCodePopup 
+        isOpen={qrPopupOpen}
+        onClose={() => setQrPopupOpen(false)}
+        reservationData={qrReservationData}
+      />
     </div>
   );
 };

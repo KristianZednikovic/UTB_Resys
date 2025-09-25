@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import QRCode from 'qrcode';
 
 const QRCodePopup = ({ isOpen, onClose, reservationData }) => {
   const [qrCodeDataURL, setQrCodeDataURL] = useState('');
 
-  useEffect(() => {
-    if (isOpen && reservationData) {
-      generateQRCode();
-    }
-  }, [isOpen, reservationData]);
-
-  const generateQRCode = async () => {
+  const generateQRCode = useCallback(async () => {
     try {
       // Create QR code data with reservation information
       const qrData = {
@@ -40,7 +34,13 @@ const QRCodePopup = ({ isOpen, onClose, reservationData }) => {
     } catch (error) {
       console.error('Error generating QR code:', error);
     }
-  };
+  }, [reservationData]);
+
+  useEffect(() => {
+    if (isOpen && reservationData) {
+      generateQRCode();
+    }
+  }, [isOpen, reservationData, generateQRCode]);
 
   const downloadQRCode = () => {
     if (qrCodeDataURL) {

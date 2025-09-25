@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
 import Popup from "./Popup";
 import LightRays from "./LightRays";
+import QRCodePopup from "./QRCodePopup";
 
 const ReservationPage = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ const ReservationPage = () => {
   const [timeAvailability, setTimeAvailability] = useState({});
   const [timeAvailability2, setTimeAvailability2] = useState({});
   const [activePopup, setActivePopup] = useState(null);
+  const [qrPopupOpen, setQrPopupOpen] = useState(false);
+  const [qrReservationData, setQrReservationData] = useState(null);
 
   const openPopup = (popupType) => {
     console.log('Opening popup:', popupType);
@@ -116,7 +119,16 @@ const ReservationPage = () => {
       }
 
       const data = await response.json();
-      alert(`Rezervace byla úspěšně vytvořena! ID: ${data.reservation.id}`);
+      
+      // Set QR code data and show popup
+      setQrReservationData({
+        id: data.reservation.id,
+        team_name: formData.team_name,
+        team_number: formData.team_number,
+        email: formData.email,
+        time_slot: formData.time_slot
+      });
+      setQrPopupOpen(true);
 
       // Reset form
       setFormData({
@@ -166,7 +178,16 @@ const ReservationPage = () => {
       }
 
       const data = await response.json();
-      alert(`Rezervace 2 byla úspěšně vytvořena! ID: ${data.reservation.id}`);
+      
+      // Set QR code data and show popup
+      setQrReservationData({
+        id: data.reservation.id,
+        team_name: formData2.team_name,
+        team_number: formData2.team_number,
+        email: formData2.email,
+        time_slot: formData2.time_slot
+      });
+      setQrPopupOpen(true);
 
       // Reset form
       setFormData2({
@@ -790,6 +811,13 @@ const ReservationPage = () => {
           </div>
         </div>
       </Popup>
+
+      {/* QR Code Popup */}
+      <QRCodePopup 
+        isOpen={qrPopupOpen}
+        onClose={() => setQrPopupOpen(false)}
+        reservationData={qrReservationData}
+      />
     </div>
   );
 };

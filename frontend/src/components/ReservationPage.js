@@ -38,7 +38,7 @@ const ReservationPage = () => {
   // Fetch time slot availability when dropdown is clicked
   const fetchTimeAvailability = async () => {
     try {
-      const response = await fetch("./backend/get_time_availability.php");
+      const response = await fetch("/backend/get_time_availability.php");
       if (response.ok) {
         const data = await response.json();
         setTimeAvailability(data.availability);
@@ -51,7 +51,7 @@ const ReservationPage = () => {
   // Fetch time slot availability for second form
   const fetchTimeAvailability2 = async () => {
     try {
-      const response = await fetch("./backend/get_time_availability_mira.php");
+      const response = await fetch("/backend/get_time_availability_mira.php");
       if (response.ok) {
         const data = await response.json();
         setTimeAvailability2(data.availability);
@@ -96,7 +96,7 @@ const ReservationPage = () => {
     setErrors({}); // Clear previous errors
 
     try {
-      const response = await fetch("./backend/create_reservation.php", {
+      const response = await fetch("/backend/create_reservation.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -140,7 +140,7 @@ const ReservationPage = () => {
       setErrors({});
       
       // Refresh time availability
-      const availabilityResponse = await fetch("./backend/get_time_availability.php");
+      const availabilityResponse = await fetch("/backend/get_time_availability.php");
       if (availabilityResponse.ok) {
         const availabilityData = await availabilityResponse.json();
         setTimeAvailability(availabilityData.availability);
@@ -155,7 +155,7 @@ const ReservationPage = () => {
     setErrors2({}); // Clear previous errors
 
     try {
-      const response = await fetch("./backend/create_reservation_mira.php", {
+      const response = await fetch("/backend/create_reservation_mira.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -199,7 +199,7 @@ const ReservationPage = () => {
       setErrors2({});
       
       // Refresh time availability
-      const availabilityResponse = await fetch("./backend/get_time_availability_mira.php");
+      const availabilityResponse = await fetch("/backend/get_time_availability_mira.php");
       if (availabilityResponse.ok) {
         const availabilityData = await availabilityResponse.json();
         setTimeAvailability2(availabilityData.availability);
@@ -212,7 +212,7 @@ const ReservationPage = () => {
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Light Rays Background */}
-      <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, minHeight: '100vh' }}>
+      <div className="fixed inset-0 w-full h-full" style={{ zIndex: 1 }}>
         <LightRays
           raysOrigin="top-center"
           raysColor="#ff0000"
@@ -229,7 +229,7 @@ const ReservationPage = () => {
       </div>
       
       {/* Creepy Background Elements */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10" style={{ zIndex: 2 }}>
         <div className="absolute top-20 left-10 w-32 h-32 border border-red-500 rounded-full animate-pulse"></div>
         <div className="absolute top-40 right-20 w-24 h-24 border border-gray-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
         <div className="absolute bottom-20 left-1/4 w-16 h-16 border border-red-600 rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
@@ -237,10 +237,12 @@ const ReservationPage = () => {
       </div>
 
       {/* Navigation */}
-      <Navigation />
+      <div style={{ position: 'relative', zIndex: 10 }}>
+        <Navigation />
+      </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" style={{ position: 'relative', zIndex: 10 }}>
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-red-400 mb-4 drop-shadow-2xl">
             💀 Rezervujte si místo v{" "}
@@ -616,7 +618,7 @@ const ReservationPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-12 border-t-2 border-red-800">
+      <footer className="bg-black text-white py-12 border-t-2 border-red-800" style={{ position: 'relative', zIndex: 10 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent animate-pulse">
@@ -656,7 +658,8 @@ const ReservationPage = () => {
       </footer>
 
       {/* Popups */}
-      <Popup 
+      <div style={{ position: 'relative', zIndex: 20 }}>
+        <Popup 
         isOpen={activePopup === 'ochrana'} 
         onClose={closePopup} 
         title="⚰️ Ochrana duší"
@@ -812,12 +815,13 @@ const ReservationPage = () => {
         </div>
       </Popup>
 
-      {/* QR Code Popup */}
-      <QRCodePopup 
-        isOpen={qrPopupOpen}
-        onClose={() => setQrPopupOpen(false)}
-        reservationData={qrReservationData}
-      />
+        {/* QR Code Popup */}
+        <QRCodePopup 
+          isOpen={qrPopupOpen}
+          onClose={() => setQrPopupOpen(false)}
+          reservationData={qrReservationData}
+        />
+      </div>
     </div>
   );
 };

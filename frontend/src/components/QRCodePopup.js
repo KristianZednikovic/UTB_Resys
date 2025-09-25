@@ -13,6 +13,7 @@ const QRCodePopup = ({ isOpen, onClose, reservationData }) => {
         email: reservationData.email,
         timeSlot: reservationData.time_slot,
         participantCount: reservationData.team_number,
+        table: reservationData.table || 'table1', // Include table information
         date: new Date().toLocaleDateString('cs-CZ'),
         timestamp: new Date().toISOString()
       };
@@ -103,6 +104,7 @@ const QRCodePopup = ({ isOpen, onClose, reservationData }) => {
               <p><span className="font-semibold text-red-300">Počet obětí:</span> {reservationData.team_number}</p>
               <p><span className="font-semibold text-red-300">Čas:</span> {reservationData.time_slot}</p>
               <p><span className="font-semibold text-red-300">Email:</span> {reservationData.email}</p>
+              <p><span className="font-semibold text-red-300">Tabulka:</span> {reservationData.table === 'reservations_mira' ? 'Tabulka 2' : 'Tabulka 1'}</p>
             </div>
           </div>
         )}

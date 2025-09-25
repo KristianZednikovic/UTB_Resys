@@ -126,7 +126,8 @@ const ReservationPage = () => {
         team_name: formData.team_name,
         team_number: formData.team_number,
         email: formData.email,
-        time_slot: formData.time_slot
+        time_slot: formData.time_slot,
+        table: 'reservations' // First table
       });
       setQrPopupOpen(true);
 
@@ -185,7 +186,8 @@ const ReservationPage = () => {
         team_name: formData2.team_name,
         team_number: formData2.team_number,
         email: formData2.email,
-        time_slot: formData2.time_slot
+        time_slot: formData2.time_slot,
+        table: 'reservations_mira' // Second table
       });
       setQrPopupOpen(true);
 

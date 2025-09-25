@@ -15,6 +15,8 @@ const ManageReservation = () => {
   const [activePopup, setActivePopup] = useState(null);
   const [qrPopupOpen, setQrPopupOpen] = useState(false);
   const [qrReservationData, setQrReservationData] = useState(null);
+  const [timeChangeModal, setTimeChangeModal] = useState(null);
+  const [availableTimeSlots, setAvailableTimeSlots] = useState({});
 
   const openPopup = (popupType) => {
     console.log('Opening popup:', popupType);
@@ -31,9 +33,34 @@ const ManageReservation = () => {
       team_name: reservation.teamName,
       team_number: reservation.participantCount,
       email: reservation.email,
-      time_slot: reservation.timeDisplay
+      time_slot: reservation.timeDisplay,
+      table: reservation.table // Pass table information
     });
     setQrPopupOpen(true);
+  };
+
+  const fetchTimeAvailability = async () => {
+    try {
+      // Fetch availability for both tables
+      const [table1Response, table2Response] = await Promise.all([
+        fetch('/backend/get_time_availability.php'),
+        fetch('/backend/get_time_availability_mira.php')
+      ]);
+
+      if (table1Response.ok && table2Response.ok) {
+        const [table1Data, table2Data] = await Promise.all([
+          table1Response.json(),
+          table2Response.json()
+        ]);
+
+        setAvailableTimeSlots({
+          table1: table1Data.availability || {},
+          table2: table2Data.availability || {}
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching time availability:', err);
+    }
   };
 
   const handleEmailSubmit = async (e) => {
@@ -74,10 +101,63 @@ const ManageReservation = () => {
 
       setReservations(allReservations);
       setSuccess(`Našli jsme ${totalCount} rezervací pro email ${email} (${allReservations.filter(r => r.table === 'reservations').length} z první tabulky, ${allReservations.filter(r => r.table === 'reservations_mira').length} z druhé tabulky)`);
+      
+      // Fetch time availability after getting reservations
+      await fetchTimeAvailability();
     } catch (err) {
       setError("Chyba při načítání rezervací. Zkuste to prosím znovu.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleTimeChange = async (reservation, newTimeSlot) => {
+    try {
+      // Determine which endpoint to use based on table name
+      const changeEndpoint = reservation.table === 'reservations_mira' 
+        ? '/backend/time_change_mira.php' 
+        : '/backend/time_change.php';
+
+      const response = await fetch(changeEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          reservationId: reservation.id,
+          newTimeSlot: newTimeSlot
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.error || 'Chyba při změně času rezervace');
+        return;
+      }
+
+      const data = await response.json();
+      
+      if (data.success) {
+        // Update the reservation in the local state
+        setReservations((prev) =>
+          prev.map((res) => 
+            res.id === reservation.id 
+              ? { ...res, time_slot: newTimeSlot, timeDisplay: `${newTimeSlot} - ${newTimeSlot.split(':')[0]}:${parseInt(newTimeSlot.split(':')[1]) + 10}` }
+              : res
+          )
+        );
+        
+        // Refresh time availability
+        await fetchTimeAvailability();
+        setTimeChangeModal(null);
+        setSuccess("Čas rezervace byl úspěšně změněn");
+        setError(''); // Clear any previous errors
+      } else {
+        setError(data.error || 'Chyba při změně času rezervace');
+      }
+      
+    } catch (err) {
+      setError('Chyba sítě. Zkuste to prosím znovu.');
     }
   };
 
@@ -213,9 +293,16 @@ const ManageReservation = () => {
           {/* Reservations List */}
           {reservations.length > 0 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-red-400 mb-6 drop-shadow-lg">
-                💀 Vaše Rezervace v Pekle
-              </h2>
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-red-400 mb-2 drop-shadow-lg">
+                  💀 Vaše Rezervace v Pekle
+                </h2>
+                <div className="bg-blue-900/20 border border-blue-600 rounded-xl p-4">
+                  <p className="text-blue-300 text-sm">
+                    💡 <strong>Tip:</strong> Můžete změnit čas své rezervace kliknutím na tlačítko "⏰ Změnit Čas"!
+                  </p>
+                </div>
+              </div>
 
               {reservations.map((reservation) => (
                 <div
@@ -249,7 +336,7 @@ const ManageReservation = () => {
                           <span className="font-semibold text-red-300">
                             ⏰ Čas hrůzy:
                           </span>
-                          <p className="text-gray-300">
+                          <p className="text-gray-300 mt-1">
                             {reservation.timeDisplay}
                           </p>
                         </div>
@@ -272,6 +359,12 @@ const ManageReservation = () => {
 
                     {reservation.status === "active" && (
                       <div className="flex flex-col gap-3 min-w-[200px]">
+                        <button
+                          onClick={() => setTimeChangeModal(reservation)}
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105 border border-green-400 hover:border-green-300 text-sm flex items-center justify-center gap-2"
+                        >
+                          ⏰ Změnit Čas
+                        </button>
                         <button
                           onClick={() => showQRCode(reservation)}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg transform hover:scale-105 border border-blue-400 hover:border-blue-300 text-sm"
@@ -519,6 +612,62 @@ const ManageReservation = () => {
           </div>
         </div>
       </Popup>
+
+        {/* Time Change Modal */}
+        {timeChangeModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+            <div className="bg-gray-900 border-2 border-red-600 rounded-2xl p-6 max-w-md w-full mx-4">
+              <h3 className="text-xl font-bold text-red-400 mb-4 drop-shadow-lg">
+                ⏰ Změnit Čas Hrůzy
+              </h3>
+              <p className="text-gray-300 mb-4">
+                Vyberte nový čas pro <strong className="text-red-300">{timeChangeModal.teamName}</strong>
+              </p>
+              
+              <div className="grid grid-cols-3 gap-2 mb-6 max-h-60 overflow-y-auto">
+                {[
+                  '15:00', '15:10', '15:20', '15:30', '15:40', '15:50',
+                  '16:00', '16:10', '16:20', '16:30', '16:40', '16:50',
+                  '17:00', '17:10', '17:20', '17:30', '17:40', '17:50',
+                  '18:00', '18:10', '18:20', '18:30', '18:40', '18:50',
+                  '19:00', '19:10', '19:20', '19:30', '19:40', '19:50'
+                ].map((timeSlot) => {
+                  const isCurrentSlot = timeSlot === timeChangeModal.time_slot;
+                  const isAvailable = timeChangeModal.table === 'reservations_mira' 
+                    ? availableTimeSlots.table2?.[timeSlot] 
+                    : availableTimeSlots.table1?.[timeSlot];
+                  const isDisabled = isCurrentSlot || !isAvailable;
+                  
+                  return (
+                    <button
+                      key={timeSlot}
+                      onClick={() => !isDisabled && handleTimeChange(timeChangeModal, timeSlot)}
+                      disabled={isDisabled}
+                      className={`px-3 py-2 text-sm rounded-md transition duration-200 ${
+                        isCurrentSlot
+                          ? 'bg-red-100 text-red-800 cursor-default border border-red-400'
+                          : isAvailable
+                          ? 'bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer border border-green-400'
+                          : 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-400'
+                      }`}
+                    >
+                      {timeSlot}
+                    </button>
+                  );
+                })}
+              </div>
+              
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={() => setTimeChangeModal(null)}
+                  className="px-4 py-2 text-gray-300 bg-gray-700 hover:bg-gray-600 rounded-lg transition duration-200 border border-gray-500"
+                >
+                  Zrušit
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* QR Code Popup */}
         <QRCodePopup 
